@@ -1,54 +1,103 @@
-/* Style for student ID display */
-#student-id {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-weight: bold;
+
+
+/* Index.html */
+.container {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center; 
+    align-items: center; 
+    width: 500px; 
+    margin: auto; 
+    gap: 20px;
 }
 
-/* Center the form */
-.form-container {
-    width: 300px;
-    margin: 50px auto;
+p{
+    text-align: center;
+    color: tomato;
+    font-size: 1.5em;
+    font: optional;
+}
+
+.box1 {
+    width: 500px;
+    border: 1px solid rgb(253, 253, 253);
+}
+
+.box2 {
+    width: 150px; 
+    height: 575px;
+    border: 1px solid rgb(253, 253, 253);
+}
+
+.box2 .img{
+  width: 100%;
+  height: 100%;
+  overflow:auto;
+}
+
+.box3 {
+    width: 320px; 
+    height: auto;
+    border: 1px solid rgb(253, 253, 253);
+}
+
+.box4 {
+  width: 150px; 
+  height: auto;
+  border: 1px solid rgb(253, 253, 253);
+}
+
+ /* Form container styling */
+ .form-container {
+    width: 280px;
+    background-color: #fff;
     padding: 20px;
-    background-color: #e4a058;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form title */
+  .form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+  }
+  
+  /* Input and select styling */
+  .form-container input[type="text"],
+  .form-container select {
+    width: 80%;
+    padding: 10px;
+    margin: 8px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(29, 23, 23, 0.1);
-}
+    font-size: 1em;
+  }
 
-/* Form elements */
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-input[type="text"],
-input[type="date"],
-select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #e57514;
+  .form-container select {
+    width: 88%;
+  }
+  /* Placeholder styling */
+  .form-container input[type="text"]::placeholder {
+    color: #888;
+  }
+  
+  /* Submit button styling */
+  .form-container button {
+    width: 30%;
+    padding: 12px;
+    background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
+    font-size: 1em;
     cursor: pointer;
-}
-
-button:hover {
+    transition: background-color 0.3s;
+  }
+  
+  .form-container button:hover {
     background-color: #45a049;
-}
+  }
+
+  
