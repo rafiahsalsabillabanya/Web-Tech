@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Store</title>
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
-
 <body>
-    <img src="css/ID.png" alt="Book Store Logo">
+    <img src="assets/ID.png" alt="My ID">
     <div class="container">
         <!-- Top 3 boxes -->
         <div class="boxTop">
-            <p>Box 1</p>
             <?php
             include 'dbConnection.php';
             // Query to fetch all books from the database
             $sql = "SELECT * FROM book";
             $result = mysqli_query($conn, $sql);
 
-            if ($result && mysqli_num_rows($result) > 0) {
+            if ($result && mysqli_num_rows($result) > 0) 
+            {
                 echo "<table>";
                 echo "<tr><th>ID</th><th>Book Title</th><th>Author</th><th>ISBN</th><th>Category</th><th>Quantity</th></tr>";
 
                 // Loop through the rows and display the book details
-                while ($row = mysqli_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) 
+                {
                     echo "<tr>";
                     echo "<td>" . $row['id'] . "</td>";
                     echo "<td>" . $row['bookTitle'] . "</td>";
@@ -37,13 +36,13 @@
                 }
 
                 echo "</table>";
-            } else {
+            } 
+            else 
                 echo "<p>No books found in the database.</p>";
-            }
             ?>
         </div>
 
-        <div class="boxSecTop">
+        <div class="boxTop">
             <p>Search Book by ID</p>
             <!-- Form to search for book by ID -->
             <form method="POST" action="">
@@ -64,7 +63,6 @@
                     // Fetch the book details from the query result
                     $book = $result->fetch_assoc();
             ?>
-                    <p>Box 2</p>
                     <h3>Book Information</h3>
                     <form method="POST" action="process.php">
                         <input type="hidden" name="book_id" value="<?php echo $book['id']; ?>" required>
@@ -96,65 +94,58 @@
             ?>
         </div>
         <div class="box1">
-        <div class="box11">
-            <p>Box 3</p>
-            <h3>All Tokens</h3>
-            <ul>
-                <?php
-                $tokenFile = "./token.json";
-                if (file_exists($tokenFile)) {
-                    $jsonData = json_decode(file_get_contents($tokenFile), true);
+    <div class="box11">
+        <h3>All Tokens</h3>
+        <ul>
+            <?php
+            $tokenFile = "./token.json";
+            if (file_exists($tokenFile)) {
+                $jsonData = json_decode(file_get_contents($tokenFile), true);
 
-                    if (isset($jsonData[0]['token'])) 
-                    {
-                        foreach ($jsonData[0]['token'] as $token) 
-                            echo "<li>Token: $token</li>";
-                    } 
-                    else 
-                        echo "<li>No tokens found in the JSON file.</li>";
+                if (isset($jsonData[0]['token'])) 
+                {
+                    foreach ($jsonData[0]['token'] as $token) 
+                        echo "<li>Token: $token</li>";
                     
-                } 
-                else 
-                    echo "<li>JSON file not found.</li>";
+                } else 
+                    echo "<li>No tokens found in the JSON file.</li>";
                 
-                ?>
-            </ul>
-        </div>
-        <div class="box11">
+            } 
+            else 
+                echo "<li>JSON file not found.</li>";
+            ?>
+        </ul>
+    </div>
+
+    <div class="box11">
         <h3>Used Tokens</h3>
-            <ul>
-                <?php
-                if (file_exists($tokenFile)) {
-                    $jsonData = json_decode(file_get_contents($tokenFile), true);
+        <ul>
+            <?php
+            if (file_exists($tokenFile)) {
+                $jsonData = json_decode(file_get_contents($tokenFile), true);
 
-                    if (isset($jsonData[0]['usedToken'])) 
-                    {
-                        foreach ($jsonData[0]['usedToken'] as $token) 
-                            echo "<li>Token: $token</li>";
-                    } 
-                    else 
-                        echo "<li>No tokens found in the JSON file.</li>";
-                    
-                } 
-                else 
-                    echo "<li>JSON file not found.</li>";
-                
-                ?>
-            </ul>
-            </div>
-
-            </div>
+                if (isset($jsonData[0]['usedToken'])) {
+                    foreach ($jsonData[0]['usedToken'] as $token) {
+                        echo "<li>Token: $token</li>";
+                    }
+                } else {
+                    echo "<li>No tokens found in the JSON file.</li>";
+                }
+            } else {
+                echo "<li>JSON file not found.</li>";
+            }
+            ?>
+        </ul>
+    </div>
+</div>
 
         <div class="box2">
-            <p>Box 4.1</p>
             <img src = "assets/1.jpg">
         </div>
         <div class="box2">
-            <p>Box 4.2</p>
             <img src = "assets/2.jpg">
         </div>
         <div class="box2">
-            <p>Box 4.3</p>
             <img src = "assets/3.jpg">
         </div>
         <div class="box3">
@@ -164,12 +155,23 @@
                     <input type="text" placeholder="Student Full Name" name="studentName" required>
                     <input type="text" placeholder="Student ID" name="studentID" required>
                     <select name="books" id="books" required>
-                        <option value="book0">Select a book</option>
-                        <option value="Introduction to Programming">Introduction to Programming</option>
-                        <option value="Data Structure">Data Structure</option>
-                        <option value="Straight Line">Straight Line</option>
-                        <option value="Integration">Integration</option>
-                        <option value="Algorithms">Algorithms</option>
+                        <option value="" disabled selected>Select a book</option>
+                        <?php
+                        include 'dbConnection.php'; // Include database connection
+                        
+                        // Query to get books with quantity > 0
+                        $sql = "SELECT * FROM book WHERE bookQuantity > 0";
+                        $result = mysqli_query($conn, $sql);
+                        
+                        if ($result && mysqli_num_rows($result) > 0) 
+                        {
+                            
+                            while ($row = mysqli_fetch_assoc($result)) 
+                                echo '<option value="' . $row['bookTitle'] . '">' . $row['bookTitle'] . '</option>';
+                        } 
+                        else 
+                            echo '<option value="" disabled>No books available</option>';
+                        ?>
                     </select>
                     <label>Borrow Date</label>
                     <input type="date" placeholder="Borrow Date" name="borrowDate" required>
@@ -204,5 +206,4 @@
         </div>
     </div>
 </body>
-
 </html>
